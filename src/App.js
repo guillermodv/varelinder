@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Main from "./Main";
 import { PeopleContext } from "./context/People";
-
-import "./App.css";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
-  const [user, setUser] = useState();
-  const [next, setNext] = useState(true);
+  const [people, setPeople] = useState();
+  const [obtainData, setObtainData] = useState(true);
 
   useEffect(() => {
-    if (next) {
-      fetch("https://randomuser.me/api/")
+    if (obtainData) {
+      fetch("https://randomuser.me/api/?results=10")
         .then((response) => response.json())
-        .then((data) => setUser(data.results[0]));
-      setNext(false);
+        .then((data) => setPeople(data.results));
+      setObtainData(false);
     }
-  }, [setUser, next]);
+  }, [setPeople, obtainData]);
 
   return (
-    <PeopleContext.Provider value={user}>
-      <Main setNext={setNext} />
+    <PeopleContext.Provider value={people}>
+      <Dashboard />
     </PeopleContext.Provider>
   );
 };
