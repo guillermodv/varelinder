@@ -35,7 +35,6 @@ const Dashboard = ({ setPeople, setObtainData }) => {
         <Button onClick={() => handleButton("name.first")}>
           Order by name
         </Button>
-        <Button onClick={() => handleButton("gender")}>Order by gender</Button>
       </Filters>
       <Grid>
         {people?.length > 0 &&
