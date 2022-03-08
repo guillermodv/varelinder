@@ -4,7 +4,10 @@ export const Card = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 10%;
-  width: 20rem;
+  width: 30rem;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export const Container = styled.div`
@@ -29,6 +32,18 @@ export const Title = styled.text`
 export const Div = styled.div`
   padding: 1rem;
   justify-content: center;
+`;
+
+export const Filters = styled.div`
+  justify-content: center;
+  padding: 2rem;
+  margin-left: 20px;
+`;
+
+export const Grid = styled.div`
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const DataTitle = styled.div`
