@@ -54,7 +54,7 @@ export const Input = styled.input`
   height: 2rem;
 `;
 
-export const Select = styled.select`
+export const Button = styled.button`
   margin-left: 20px;
   width: 15rem;
   height: 2rem;
