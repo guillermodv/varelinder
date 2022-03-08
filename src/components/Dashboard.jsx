@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { PeopleContext } from "../context/People";
-
 import {
   Filters,
   Grid,
@@ -29,11 +28,14 @@ const customStyles = {
   },
 };
 
-const Dashboard = ({ setPeople, setObtainData }) => {
+const Dashboard = ({ setPeople }) => {
   const people = useContext(PeopleContext);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [peopleToShow, setPeopleToShow] = useState();
   const [card, setCard] = useState();
   const [editedCard, setEditedCard] = useState();
+
+  useEffect(() => setPeopleToShow(people), [people]);
 
   const onSubmit = () => {
     for (let i = 0; i < people.length; i++) {
@@ -72,9 +74,9 @@ const Dashboard = ({ setPeople, setObtainData }) => {
       const filteredPeople = people.filter((p) =>
         p.name.first.toLowerCase().includes(filter)
       );
-      setPeople(filteredPeople);
+      setPeopleToShow(filteredPeople);
     } else {
-      setObtainData(true);
+      setPeopleToShow(people);
     }
   };
 
@@ -105,8 +107,8 @@ const Dashboard = ({ setPeople, setObtainData }) => {
         </Button>
       </Filters>
       <Grid>
-        {people?.length > 0 &&
-          people?.map((person) => (
+        {peopleToShow?.length > 0 &&
+          peopleToShow?.map((person) => (
             <PersonCard
               person={person}
               setIsOpen={setIsOpen}
