@@ -37,13 +37,27 @@ export const Div = styled.div`
 export const Filters = styled.div`
   justify-content: center;
   padding: 2rem;
-  margin-left: 20px;
+  margin-left: 40px;
+  margin-right: 20px;
 `;
 
 export const Grid = styled.div`
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
+`;
+
+export const Input = styled.input`
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 15rem;
+  height: 2rem;
+`;
+
+export const Select = styled.select`
+  margin-left: 20px;
+  width: 15rem;
+  height: 2rem;
 `;
 
 export const DataTitle = styled.div`

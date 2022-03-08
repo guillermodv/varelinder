@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <PeopleContext.Provider value={people}>
-      <Dashboard />
+      <Dashboard setPeople={setPeople} setObtainData={setObtainData} />
     </PeopleContext.Provider>
   );
 };
