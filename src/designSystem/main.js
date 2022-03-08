@@ -6,8 +6,7 @@ export const Card = styled.div`
   border-radius: 5%;
   width: 30rem;
   padding: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
 `;
 
 export const Container = styled.div`
