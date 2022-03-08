@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-modal";
 import { PeopleContext } from "../context/People";
+
 import {
   Filters,
   Grid,
@@ -32,14 +33,26 @@ const Dashboard = ({ setPeople, setObtainData }) => {
   const people = useContext(PeopleContext);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [card, setCard] = useState();
+  const [editedCard, setEditedCard] = useState();
+
+  const onSubmit = () => {
+    for (let i = 0; i < people.length; i++) {
+      if (people[i].picture.large === editedCard?.picture?.large) {
+        people[i].name.first = editedCard.first;
+        people[i].name.last = editedCard.last;
+        people[i].email = editedCard.email;
+        people[i].phone = editedCard.phone;
+        people[i].location.state = editedCard.state;
+        people[i].location.country = editedCard.country;
+      }
+    }
+    setPeople(people);
+    setIsOpen(false);
+  };
 
   const handleButton = (property) => {
     const sorted = sortBy(people, [property]);
     setPeople(sorted);
-  };
-
-  const handleSubmit = (property) => {
-    setIsOpen(false);
   };
 
   const handleSearch = (filter) => {
@@ -51,6 +64,19 @@ const Dashboard = ({ setPeople, setObtainData }) => {
     } else {
       setObtainData(true);
     }
+  };
+
+  const handleChange = (event) => {
+    setEditedCard({
+      ...editedCard,
+      ...card,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setEditedCard({});
   };
 
   return (
@@ -79,46 +105,65 @@ const Dashboard = ({ setPeople, setObtainData }) => {
       <div>
         <Modal
           isOpen={modalIsOpen}
-          onRequestClose={() => setIsOpen(false)}
+          onRequestClose={handleClose}
           style={customStyles}
           contentLabel="Edit"
         >
           <ModalButton>
-            <CloseButton onClick={() => setIsOpen(false)}>X</CloseButton>
+            <CloseButton onClick={handleClose}>X</CloseButton>
           </ModalButton>
           <ModalTitle>Edit Card</ModalTitle>
-          <Line>
-            <Label for="name">First Name:</Label>
-            <InputModal id="first" value={card?.name.first} name="first" />
-          </Line>
-          <Line>
-            <Label for="name">Last Name:</Label>
-            <InputModal id="last" name="last" value={card?.name.last} />
-          </Line>
-          <Line>
-            <Label for="name">Mail:</Label>
-            <InputModal
-              id="email"
-              name="email"
-              value={card?.email}
-              length={20}
-            />
-          </Line>
-          <Line>
-            <Label for="name">Locality:</Label>
-            <InputModal id="state" name="state" value={card?.location.state} />
-          </Line>
-          <Line>
-            <Label for="name">State:</Label>
-            <InputModal
-              id="country"
-              name="country"
-              value={card?.location.country}
-            />
-          </Line>
-          <ModalButton>
-            <SaveButton onClick={handleSubmit}>Save</SaveButton>
-          </ModalButton>
+          <div>
+            <Line>
+              <Label for="first">First Name:</Label>
+              <InputModal
+                id="first"
+                defaultValue={card?.name.first}
+                name="first"
+                onChange={handleChange}
+              />
+            </Line>
+            <Line>
+              <Label for="last">Last Name:</Label>
+              <InputModal
+                id="last"
+                name="last"
+                defaultValue={card?.name.last}
+                onChange={handleChange}
+              />
+            </Line>
+            <Line>
+              <Label for="mail">Mail:</Label>
+              <InputModal
+                id="email"
+                name="email"
+                defaultValue={card?.email}
+                length={20}
+                onChange={handleChange}
+              />
+            </Line>
+            <Line>
+              <Label for="state">Locality:</Label>
+              <InputModal
+                id="state"
+                name="state"
+                defaultValue={card?.location.state}
+                onChange={handleChange}
+              />
+            </Line>
+            <Line>
+              <Label for="country">State:</Label>
+              <InputModal
+                id="country"
+                name="country"
+                defaultValue={card?.location.country}
+                onChange={handleChange}
+              />
+            </Line>
+            <ModalButton>
+              <SaveButton onClick={onSubmit}>Save</SaveButton>
+            </ModalButton>
+          </div>
         </Modal>
       </div>
     </>

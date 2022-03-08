@@ -12,7 +12,7 @@ import {
 import { FaPencilAlt } from "react-icons/fa";
 
 const PersonCard = ({ person, setCard, setIsOpen }) => {
-  const handleButton = () => {
+  const handleEditButton = () => {
     setCard(person);
     setIsOpen(true);
   };
@@ -22,7 +22,10 @@ const PersonCard = ({ person, setCard, setIsOpen }) => {
       <Container>
         <DataTitle>
           <EditButton>
-            <FaPencilAlt style={{ color: "white" }} onClick={handleButton} />
+            <FaPencilAlt
+              style={{ color: "white" }}
+              onClick={handleEditButton}
+            />
           </EditButton>
           <Title>
             {person?.name.first} {person?.name.last}
