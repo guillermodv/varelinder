@@ -38,12 +38,24 @@ const Dashboard = ({ setPeople, setObtainData }) => {
   const onSubmit = () => {
     for (let i = 0; i < people.length; i++) {
       if (people[i].picture.large === editedCard?.picture?.large) {
-        people[i].name.first = editedCard.first;
-        people[i].name.last = editedCard.last;
-        people[i].email = editedCard.email;
-        people[i].phone = editedCard.phone;
-        people[i].location.state = editedCard.state;
-        people[i].location.country = editedCard.country;
+        people[i].name.first = editedCard?.first
+          ? editedCard.first
+          : people[i].name.first;
+        people[i].name.last = editedCard?.last
+          ? editedCard?.last
+          : people[i].name.last;
+        people[i].email = editedCard?.email
+          ? editedCard?.email
+          : people[i].email;
+        people[i].phone = editedCard?.phone
+          ? editedCard?.phone
+          : people[i].phone;
+        people[i].location.state = editedCard?.state
+          ? editedCard?.state
+          : people[i].location.state;
+        people[i].location.country = editedCard?.country
+          ? editedCard?.country
+          : people[i].location.country;
       }
     }
     setPeople(people);
