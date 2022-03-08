@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Main from "./Main";
+import { PeopleContext } from "./context/People";
 
-function App() {
+import "./App.css";
+
+const App = () => {
+  const [user, setUser] = useState();
+  const [next, setNext] = useState(true);
+
+  useEffect(() => {
+    if (next) {
+      fetch("https://randomuser.me/api/")
+        .then((response) => response.json())
+        .then((data) => setUser(data.results[0]));
+      setNext(false);
+    }
+  }, [setUser, next]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PeopleContext.Provider value={user}>
+      <Main setNext={setNext} />
+    </PeopleContext.Provider>
   );
-}
+};
 
 export default App;
