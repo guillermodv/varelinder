@@ -9,7 +9,6 @@ import {
   Label,
   Line,
   CloseButton,
-  EditButton,
   Button,
   ModalButton,
   InputModal,
