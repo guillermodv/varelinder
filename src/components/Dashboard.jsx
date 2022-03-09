@@ -71,8 +71,10 @@ const Dashboard = ({ setPeople }) => {
 
   const handleSearch = (filter) => {
     if (filter.length > 0) {
-      const filteredPeople = people.filter((p) =>
-        p.name.first.toLowerCase().includes(filter)
+      const filteredPeople = people.filter(
+        (p) =>
+          p.name.first.toLowerCase().includes(filter.toLowerCase()) ||
+          p.name.last.toLowerCase().includes(filter.toLowerCase())
       );
       setPeopleToShow(filteredPeople);
     } else {
@@ -101,6 +103,7 @@ const Dashboard = ({ setPeople }) => {
           id="search"
           name="search"
           onChange={(e) => handleSearch(e.target.value)}
+          onBlur={(e) => handleSearch(e.target.value)}
         />
         <Button onClick={() => handleButton("name.first")}>
           Order by name
@@ -109,11 +112,13 @@ const Dashboard = ({ setPeople }) => {
       <Grid>
         {peopleToShow?.length > 0 &&
           peopleToShow?.map((person) => (
-            <PersonCard
-              person={person}
-              setIsOpen={setIsOpen}
-              setCard={setCard}
-            />
+            <div key={person.name.last}>
+              <PersonCard
+                person={person}
+                setIsOpen={setIsOpen}
+                setCard={setCard}
+              />
+            </div>
           ))}
       </Grid>
       <div>
